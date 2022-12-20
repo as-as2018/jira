@@ -6,6 +6,7 @@ import { Input, Checkbox, Select } from "../../FormFields";
 import { TypeIcon } from "../../../../shared/components/Icon/index.jsx";
 import { Item, Label } from "../../FormFields/Styles.js";
 import { CreateModal, Header, Title, ControlButtons, Button } from "./Styles";
+import { postData } from "../../../utils/api";
 
 const Edit = ({
     data: { users, issues, originalIssues },
@@ -47,6 +48,15 @@ const Edit = ({
 
                     const updatedIssues = issues.map((item, index) =>
                         item.id === issueId ? updatedItem : item
+                    );
+                    postData("members/updatetmaIssues",updatedItem).then((res) => {
+                        console.log('createIssues data',res);
+                        // setData({
+                        //     issues: res.issues, 
+                        //     users: [], 
+                        //     originalIssues: res.issues
+                        // })
+                        }
                     );
                     setData({ issues: updatedIssues, originalIssues, users });
                     setModal({ visibility: false });
@@ -98,7 +108,6 @@ const Edit = ({
                             type="submit"
                             background="#0153cb"
                             color="#fff"
-                            type="submit"
                         >
                             Update Issue
                         </Button>

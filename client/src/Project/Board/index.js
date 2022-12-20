@@ -10,14 +10,17 @@ import Filters from "./Filters";
 import { MainBoard } from "./Style";
 import { ascending } from "../../shared/utils/javascript";
 import LoaderComponent from "../../shared/components/Loader";
+import postData  from '../../shared/utils/api'
 
 const Board = ({data,setData, modal, setModal}) => {
     const handleDrag = ({ destination, source, draggableId }) => {
         const cloneIssues = [...data.issues];
         const destinationStatus = destination.droppableId.toLowerCase();
+        console.log("destinationStatus",destinationStatus);
         const filteredIssues = cloneIssues
             .filter((item) => destinationStatus === item.status)
             .sort(ascending);
+            console.log("filteredIssues",filteredIssues);
         const intactIssues = cloneIssues
             .filter((item) => destinationStatus !== item.status)
             .sort(ascending);
@@ -30,6 +33,11 @@ const Board = ({data,setData, modal, setModal}) => {
                 deletedIssue
             );
             const issues = [...intactIssues, ...processedIssues];
+            console.log('data at IF dropzone',deletedIssue);
+            // postData("members/updatetmaIssues",deletedIssue).then((res) => {
+            //     console.log('createIssues data',res);
+            //     }
+            // );
             setData({ ...data, issues });
         } else {
             const [deletedIssue] = intactIssues.splice(
@@ -45,6 +53,11 @@ const Board = ({data,setData, modal, setModal}) => {
                 deletedIssue
             );
             const issues = [...intactIssues, ...processedIssues];
+            console.log('data at Else dropzone',deletedIssue);
+            // postData("members/updatetmaIssues",deletedIssue).then((res) => {
+            //     console.log('createIssues data',res);
+            //     }
+            // );
             setData({ ...data, issues });
         }
     };

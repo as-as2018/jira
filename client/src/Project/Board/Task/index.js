@@ -15,6 +15,8 @@ import {
 
 const JiraTask = ({ issue, users, statusType, index, setModal, modal }) => {
     const transformedUsers = arrayIntoObject(users);
+    console.log("transformedUsers",transformedUsers);
+    console.log("issue",JSON.parse(issue.userIds));
     return (
         <Draggable
             draggableId={issue.id.toString()}
@@ -43,8 +45,16 @@ const JiraTask = ({ issue, users, statusType, index, setModal, modal }) => {
                                     type={issue.type}
                                 />
                                 <PriorityIcon priority={issue.priority} />
+                                
                             </PriortyType>
                             <div>
+                         
+                           <div style={{textAlign:"center"}} dangerouslySetInnerHTML={{__html:issue.description}}>
+                           
+                           </div>
+                           {JSON.parse(issue.userIds)[0]}
+                           {JSON.parse(issue.userIds)[1]}
+                             
                                 {JSON.parse(issue.userIds).map((id) => (
                                     <UserIcon
                                         key={id}

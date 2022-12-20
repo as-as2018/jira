@@ -37,6 +37,7 @@ const BoardColumn = ({ statusType, issues, users, setModal, modal }) => {
                         {...provided.droppableProps}
                     >
                         {sortedIssues.map((issue, index) => (
+                            
                             <Task
                                 key={issue.id}
                                 statusType={statusType}

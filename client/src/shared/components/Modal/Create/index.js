@@ -4,10 +4,11 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Input, Checkbox, Select } from "../../FormFields";
 import { Item, Label } from "../../FormFields/Styles.js";
-
 import { CreateModal, Header, Title, ControlButtons, Button } from "./Styles";
+import { postData } from "../../../utils/api";
 
-const Create = ({ data, setData, setModal }) => {
+const Create = ({data,setData,setModal}) => {
+    
     let newListPosition;
     const { users, issues } = data;
     const backlogIssues = issues.filter((issue) => issue.status === "backlog");
@@ -52,6 +53,16 @@ const Create = ({ data, setData, setModal }) => {
                     };
 
                     issues.push(newIssue);
+                    console.log("created data",newIssue)
+                postData("members/createtmaIssues",newIssue).then((res) => {
+                    console.log('createIssues data',res);
+                    // setData({
+                    //     issues: res.issues, 
+                    //     users: [], 
+                    //     originalIssues: res.issues
+                    // })
+                    }
+                );
                     setData({ ...data, issues, users });
                     setModal({ visibility: false });
                 }}
@@ -74,7 +85,7 @@ const Create = ({ data, setData, setModal }) => {
                             )}
                         </Field>
                     </Item>
-                    <Select name="reporter" name="reporter">
+                    <Select name="reporter" >
                         {users.map((item) => (
                             <option key={item.id} value={item.id}>
                                 {item.name}
@@ -99,7 +110,7 @@ const Create = ({ data, setData, setModal }) => {
                             type="submit"
                             background="#0153cb"
                             color="#fff"
-                            type="submit"
+                        
                         >
                             Create Issue
                         </Button>

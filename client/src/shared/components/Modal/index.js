@@ -23,6 +23,7 @@ const chooseModal = (data, setData, modal, setModal) => {
             return <Search data={data} setModal={setModal} />;
         case "create":
             return <Create data={data} setData={setData} setModal={setModal} />;
+            // return <Create setModal={setModal} />;
     }
 };
 
